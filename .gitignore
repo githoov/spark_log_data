@@ -1,0 +1,7 @@
+.idea
+target
+*.class
+tags
+.*.swp
+.*.swo
+*.conf
