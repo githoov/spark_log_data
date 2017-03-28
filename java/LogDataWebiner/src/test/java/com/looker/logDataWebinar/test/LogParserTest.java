@@ -28,6 +28,7 @@ public class LogParserTest {
     @Test
     public void testEventLogParser() {
         LogLine logLine = LogParser.parseLog(log);
+        Assert.assertTrue(logLine != null);
         System.out.println(logLine);
     }
 
