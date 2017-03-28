@@ -2,8 +2,6 @@ package com.looker.logDataWebinar.test;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
-import org.apache.spark.sql.Encoder;
-import org.apache.spark.sql.Encoders;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +27,7 @@ public class LogParserTest {
     public void testEventLogParser() {
         LogLine logLine = LogParser.parseLog(log);
         Assert.assertTrue(logLine != null);
-        System.out.println(logLine);
+        logger.info(logLine);
     }
 
 }

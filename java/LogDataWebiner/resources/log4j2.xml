@@ -5,12 +5,11 @@
 	<Properties>
 		<Property name="log-path">flume-spark-streaming-logs</Property>
 		<Property name="log-msg-format">%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%t]%c{1} - %msg%n</Property>
-		<Property name="console-log-msg-format">%msg%n</Property>
 	</Properties>
 
 	<Appenders>
 		<Console name="console-log" target="SYSTEM_OUT">
-			<PatternLayout pattern="${console-log-msg-format}" />
+			<PatternLayout pattern="${log-msg-format}" />
 		</Console>
 		<RollingFile name="file-log" fileName="${log-path}/spark-stream.log" filePattern="${log-path}/spark-stream-%d{yyyy-MM-dd}.log">
 			<PatternLayout>

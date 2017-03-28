@@ -220,7 +220,7 @@ public class LogDataWebinar {
         } catch (InterruptedException ex) {
             logger.warn(ex);
         } finally {
-            // System.exit(0);
+//             System.exit(0);
         }
     }
 }
