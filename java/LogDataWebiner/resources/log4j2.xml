@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--- Document for log4j2 configuration Created by kaidul on 2016-11-15 11:31:18 -->
+<Configuration status="WARN">
+
+	<Properties>
+		<Property name="log-path">flume-spark-streaming-logs</Property>
+		<Property name="log-msg-format">%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%t]%c{1} - %msg%n</Property>
+		<Property name="console-log-msg-format">%msg%n</Property>
+	</Properties>
+
+	<Appenders>
+		<Console name="console-log" target="SYSTEM_OUT">
+			<PatternLayout pattern="${console-log-msg-format}" />
+		</Console>
+		<RollingFile name="file-log" fileName="${log-path}/spark-stream.log" filePattern="${log-path}/spark-stream-%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<pattern>${log-msg-format}</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
+			</Policies>
+		</RollingFile>
+		<RollingFile name="error-log" fileName="${log-path}/spark-stream-error.log" filePattern="${log-path}/spark-stream-error-%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<pattern>${log-msg-format}</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
+			</Policies>
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+		<Logger name="com.ringid.sparkStreaming" level="all" additivity="false">
+			<appender-ref ref="file-log" level="all" />
+			<appender-ref ref="error-log" level="error" />
+		</Logger>
+		<Root level="all">
+			<AppenderRef ref="console-log" />
+		</Root>
+	</Loggers>
+
+</Configuration>

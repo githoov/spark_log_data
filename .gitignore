@@ -5,3 +5,7 @@ tags
 .*.swp
 .*.swo
 *.conf
+org.eclipse.*
+.project
+.classpath
+
