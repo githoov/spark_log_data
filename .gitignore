@@ -8,4 +8,5 @@ tags
 org.eclipse.*
 .project
 .classpath
+.DS_Store
 

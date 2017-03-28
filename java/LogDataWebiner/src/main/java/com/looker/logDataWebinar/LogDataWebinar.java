@@ -33,7 +33,6 @@ import org.apache.spark.streaming.flume.SparkFlumeEvent;
 @SuppressWarnings({ "serial", "deprecation" })
 public class LogDataWebinar {
 
-    private static final LogParser logParser = new LogParser();
     private static final Encoder<LogLine> logEncoder = Encoders.bean(LogLine.class);
     private static final Logger logger = Logger.getLogger(LogDataWebinar.class);
     
@@ -81,13 +80,13 @@ public class LogDataWebinar {
             logger.fatal("Exception reading config.properties file-->", ex);
         }
 
-        appName = properties.getProperty(APP_NAME_KEY, "SparkFlumeStreaming");
+        appName = properties.getProperty(APP_NAME_KEY, "Log_Data_Webinar");
         isCheckpointEnabled = Boolean.valueOf( properties.getProperty(CHECKPOINT_ENABLED, TRUE) );
-        checkpointDir = properties.getProperty(CHECKPOINT_DIR, "hdfs://localhost:9000/user/flume-spark/checkpoint");
+        checkpointDir = properties.getProperty(CHECKPOINT_DIR, "hdfs:///user/flume-spark/checkpoint");
         isWalEnabled = properties.getProperty(WRITE_AHEAD_LOG_ENABLED, TRUE);
         batchInterval = Integer.valueOf(properties.getProperty(BATCH_INTERVAL_KEY, "10"));
         partition = Integer.valueOf(properties.getProperty(COALESCE_PARTITION_KEY, "1"));
-        hdfsPath = properties.getProperty(HDFS_PATH_KEY, "hdfs://localhost:9000/user/flume-spark/eventlog");
+        hdfsPath = properties.getProperty(HDFS_PATH_KEY, "hdfs:///user/flume-spark/analyzed-log");
 
         logger.info("Application Name: " + appName);
         logger.info("HDFS Directory: " + hdfsPath);
@@ -96,6 +95,8 @@ public class LogDataWebinar {
     private static JavaDStream<String> createDStream(JavaStreamingContext javaStreamingContext, String hostName, int port) {
         
         JavaReceiverInputDStream<SparkFlumeEvent> flumeEventStream = FlumeUtils.createStream(javaStreamingContext, hostName, port);
+        
+        // Set different storage level 
 //        flumeEventStream.persist(StorageLevel.MEMORY_AND_DISK_SER());
         
         JavaDStream<String> dStream = flumeEventStream.map(new Function<SparkFlumeEvent, String>() {
@@ -144,7 +145,7 @@ public class LogDataWebinar {
                     @Override
                     public LogLine call(String logText) throws Exception {
 
-                        LogLine logLine = logParser.parseLog(logText);
+                        LogLine logLine = LogParser.parseLog(logText);
                         logger.info(logLine);
 
                         return logLine;

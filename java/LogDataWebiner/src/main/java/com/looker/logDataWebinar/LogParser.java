@@ -14,19 +14,27 @@ import java.util.regex.Pattern;
  */
 public class LogParser {
 
-    private static Pattern logPattern = Pattern.compile(
-            "^([d\\+.]+)\\s+(\\S+)\\s+(\\S+)\\s+(?:\\[)(.*)(?:\\])\\s+(?:\\p{Punct})([A-Z]+)\\s+(\\S+)\\s+(\\S+)(?:\\p{Punct})\\s+(\\S+)\\s+(\\S+)\\s+(?:\\p{Punct})(\\S+)(?:\\p{Punct})\\s+(?:\\p{Punct})([^\"]*)(?:\")\\s+(.*)$");
+	private static Pattern logPattern = Pattern.compile(
+            "^([\\d+.]+)\\s+(\\S+)\\s+(\\S+)\\s+(?:\\[)(.*)(?:\\])\\s+(?:\\p{Punct})([A-Z]+)\\s+(\\S+)\\s+(\\S+)(?:\\p{Punct})\\s+(\\S+)\\s+(\\S+)\\s+(?:\\p{Punct})(\\S+)(?:\\p{Punct})\\s+(?:\\p{Punct})([^\"]*)(?:\")\\s+(.*)$");
     
-    public LogLine parseLog(String logtxt) {
-        Matcher logMatcher = logPattern.matcher(logtxt);
-        if (!logMatcher.matches()) {
-            System.out.println("Not matched");
-            return null;
-        }
-        System.out.println(logMatcher.groupCount());
-        for(int i = 1; i <= logMatcher.groupCount(); i++) {
-            System.out.println(logMatcher.group(i));
-        }
-        return null;
+    public static LogLine parseLog(String logtxt) {
+    	Matcher logMatcher = logPattern.matcher(logtxt);
+		if(!logMatcher.matches()) {
+			return null;
+		}
+		String ipAddress = logMatcher.group(1);
+		String identifier = logMatcher.group(2);
+	    String userId = logMatcher.group(3);
+	    String creationTime = logMatcher.group(4);
+	    String method = logMatcher.group(5);
+	    String uri = logMatcher.group(6);
+	    String protocol = logMatcher.group(7);
+	    String status = logMatcher.group(8);
+	    String size = logMatcher.group(9);
+	    String referer = logMatcher.group(10);
+	    String agent = logMatcher.group(11);
+	    String userMetaInfo = logMatcher.group(12);
+	    
+		return new LogLine(ipAddress, identifier, userId, creationTime, method, uri, protocol, status, size, referer, agent, userMetaInfo);
     }
 }
