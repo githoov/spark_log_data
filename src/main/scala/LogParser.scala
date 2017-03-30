@@ -32,3 +32,6 @@ class LogParser {
   }
 
 }
+
+// 2.174.143.4 - - [09/May/2016:05:56:03 +0000]  \"GET  /department HTTP/1.1\" 200 1226  \"-\" \"Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; GTB6.3; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30; InfoPath.2)\" \"USER=0;NUM=9\";
+// "^([d\\.]+)\\s+(\\S+)\\s+(\\S+)\\s+(?:\\[)(.*)(?:\\])\\s+(?:\\p{Punct})([A-Z]+)\\s+(\\S+)\\s+(\\S+)(?:\\p{Punct})\\s+(\\S+)\\s+(\\S+)\\s+(?:\\p{Punct})(\\S+)(?:\\p{Punct})\\s+(?:\\p{Punct})([^\"]*)(?:\")\\s+(.*)"

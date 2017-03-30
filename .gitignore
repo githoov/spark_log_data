@@ -5,3 +5,8 @@ tags
 .*.swp
 .*.swo
 *.conf
+org.eclipse.*
+.project
+.classpath
+.DS_Store
+

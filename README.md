@@ -1,7 +1,9 @@
 # Spark Log Parser
 
 ## Overview
-This is a sample Spark Streaming application written in Scala, the purpose of which is to take a stream of logs from Flume, parse the raw logs, create a Spark dataframe, and write the data to Parquet in HDFS.
+This is a sample Spark Streaming application written in Scala, the purpose of which is to take a stream of logs from Flume, parse the raw logs, create a Spark dataframe, and write the data to Parquet in HDFS. 
+
+A similar Java version has also been implemented which has additional features like restoring from checkpoint after failover, write-ahead-log, persisting in serialized format in both memory and disk etc.
 ![image](https://cloud.githubusercontent.com/assets/2467394/15783257/4f374d2c-2962-11e6-95b1-01edd47ed7b6.png)
 
 ## Walkthrough
@@ -70,6 +72,15 @@ agent.sinks.spark.channel = memory2
 - Open `/src/main/resources/application.conf` and set your HDFS output location.
 - Compile into uber jar: `sbt assembly`
 - Submit application to Spark: `./bin/spark-submit --master local[2] --class logDataWebinar /spark_log_data/target/scala-2.10/Log\ Data\ Webinar-assembly-1.0.jar localhost 9988 60`
+
+### Java Application
+The java version is available under `Java/LogDataWebinar` directory.
+- Open `config.properties` and `log4j2.xml` under `Java/LogDataWebinar/resources` directory and set necessary properties.
+- Compile into uber jar: `mvn package -DskipTests`
+
+An executable `Webinar-1.0.0-SNAPSHOT.jar` will be created under `Java/LogDataWebinar/target` directory.
+
+- Submit application to Spark: `./bin/spark-submit --master local[2] --class com.looker.logDataWebinar.LogDataWebinar /spark_log_data/target/scala-2.10/Log\ Data\ Webinar-1.0.0-SNAPSHOT.jar localhost 9988`
 
 ### Hive
 We're going to use the Hive Metastore to interface with our Parquet files by creating an [external table](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL#LanguageManualDDL-ExternalTables).
