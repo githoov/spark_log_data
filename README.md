@@ -10,6 +10,7 @@ A similar Java version has also been implemented which has additional features l
 The following walkthrough is meant to get the user up and running with an example in localmode; however, there are a few minor changes—particularly with the Flume set up—that allows this to run over a network and on an entire Spark cluster.
 
 ### Preliminaries
+Below steps are only for using the Scala version. To use Java version, conventional Flume setup should be sufficient. 
 - Download the latest release of [Flume](http://www.apache.org/dyn/closer.lua/flume/1.6.0/apache-flume-1.6.0-bin.tar.gz).
 - Download jar for [spark-streaming-flume-sink](http://search.maven.org/remotecontent?filepath=org/apache/spark/spark-streaming-flume-sink_2.10/1.6.1/spark-streaming-flume-sink_2.10-1.6.1.jar).
 - Download the [scala-lang](http://search.maven.org/remotecontent?filepath=org/scala-lang/scala-library/2.10.5/scala-library-2.10.5.jar) jar.
